@@ -25,7 +25,7 @@ $(document).ready(function() {
 	// Editor Setting
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef : oEditors, // 전역변수 명과 동일해야 함.
-		elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+		elPlaceHolder : "postcont", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
 		sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
 		fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
 		htParams : {
@@ -42,7 +42,7 @@ $(document).ready(function() {
 	$("#replyBtn").click(function(){
 		if(confirm("저장하시겠습니까?")) {
 			// id가 smarteditor인 textarea에 에디터에서 대입
-			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["postcont"].exec("UPDATE_CONTENTS_FIELD", []);
 
 			// 이부분에 에디터 validation 검증
 			if(validation()) {
@@ -66,7 +66,7 @@ function validation(){
 	var contents = $.trim(oEditors[0].getContents());
 	if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 		alert("내용을 입력하세요.");
-		oEditors.getById['smarteditor'].exec('FOCUS');
+		oEditors.getById['postcont'].exec('FOCUS');
 		return false;
 	}
 
@@ -89,8 +89,8 @@ function validation(){
 <form class="form-horizontal" id="replyFrm" role="form" action="${cp }/replyForm" method="post" enctype="multipart/form-data">
 <!-- bpost, mode -->
 	<div class="form-group">
-		<input type="hidden" class="form-control" id="rpostseq" name="rpostseq" value="${rPost.postseq }">
-		<input type="hidden" class="form-control" id="rgn" name="rgn" value="${rPost.gn }">
+		<input type="hidden" class="form-control" id="parentseq" name="parentseq" value="${rPost.postseq }">
+		<input type="hidden" class="form-control" id="gn" name="gn" value="${rPost.gn }">
 	</div>
 	<div class="col-sm-12 blog-main">
 		<h2 class="sub-header">${S_POSTBOARDVO.boardnm }</h2>
@@ -106,7 +106,7 @@ function validation(){
 					<div class="form-group">
 						<label for="postcont" class="col-sm-2 control-label">글 내용</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
+							<textarea class="form-control" name="postcont" id="postcont" rows="10" cols="100" style="width:766px; height:412px;"></textarea>
 						</div>
 					</div>
 					

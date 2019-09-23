@@ -55,9 +55,8 @@ function commDeleBtn(commseq){
 
 <body>
 <!-- 삭제 -->
-<form id="delFrm" action="${cp }/detail" method="post">
+<form id="delFrm" action="${cp }/delPost" method="get">
 	<input type="hidden" name="delpostseq" value="${bPost.postseq }"/>
-	<input type="hidden" name="pmode" value="del"/>
 </form>
 <!-- 답글 -->
 <form id="repFrm" action="${cp }/replyForm" method="get">
@@ -68,13 +67,12 @@ function commDeleBtn(commseq){
 	<input type="hidden" name="modipostseq" value="${bPost.postseq }"/>
 </form>
 <!-- 댓글삭제 -->
-<form id="commDelFrm" action="${cp }/detail" method="post">
+<form id="commDelFrm" action="${cp }/delComm" method="get">
 	<input type="hidden" id="commseq" name="commseq"/>
-	<input type="hidden" name="pmode" value="commdele"/>
-	<input type="hidden" name="commdelpostseq" value="${bPost.postseq }"/>
+	<input type="hidden" name="postseq" value="${bPost.postseq }"/>
 </form>
 <!-- header -->
-<%@include file="/WEB-INF/views/commonJsp//header.jsp" %>
+<%@include file="/WEB-INF/views/commonJsp/header.jsp" %>
 <div class="container-fluid">
 		<div class="row">
 			
@@ -152,11 +150,10 @@ function commDeleBtn(commseq){
 						</c:forEach>
 						<div class="col-sm-12">&nbsp;</div>
 						<div class="col-sm-12">
-							<form id="insCommFrm" action="${cp }/detail" method="post">
+							<form id="insCommFrm" action="${cp }/insertComm" method="get">
 								<div class="col-sm-12">
-									<textarea class="col-sm-7" name="commcomment" rows="5" cols="100"></textarea>
-									<input type="hidden" id="pmode" name="pmode" value="insComm"/>
-									<input type="hidden" name="commpostseq" value="${bPost.postseq }"/>
+									<textarea class="col-sm-7" name="commcont" rows="5" cols="100"></textarea>
+									<input type="hidden" name="postseq" value="${bPost.postseq }"/>
 								</div>
 								<div class="col-sm-12">&nbsp;</div>
 								<div class="col-sm-7">

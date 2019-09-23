@@ -15,6 +15,12 @@ public class AttaFile {
 		this.attarealfilename = attarealfilename;
 	}
 	
+	public AttaFile(String attafilename, String attarealfilename, int postseq) {
+		this.attafilename = attafilename;
+		this.attarealfilename = attarealfilename;
+		this.postseq = postseq;
+	}
+	
 	public AttaFile(int attaseq, String attafilename, String attarealfilename, int postseq) {
 		this.attaseq = attaseq;
 		this.attafilename = attafilename;

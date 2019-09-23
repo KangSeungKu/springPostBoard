@@ -25,7 +25,7 @@ $(document).ready(function() {
 	// Editor Setting
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef : oEditors, // 전역변수 명과 동일해야 함.
-		elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+		elPlaceHolder : "postcont", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
 		sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
 		fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
 		htParams : {
@@ -42,7 +42,7 @@ $(document).ready(function() {
 	$("#modifyBtn").click(function(){
 		if(confirm("저장하시겠습니까?")) {
 			// id가 smarteditor인 textarea에 에디터에서 대입
-			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["postcont"].exec("UPDATE_CONTENTS_FIELD", []);
 
 			// 이부분에 에디터 validation 검증
 			if(validation()) {
@@ -70,7 +70,7 @@ function validation(){
 	var contents = $.trim(oEditors[0].getContents());
 	if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
 		alert("내용을 입력하세요.");
-		oEditors.getById['smarteditor'].exec('FOCUS');
+		oEditors.getById['postcont'].exec('FOCUS');
 		return false;
 	}
 
@@ -80,26 +80,28 @@ function validation(){
 function delBtn(attaseq) {
 	$('#mMode').val('fileDel');
 	$('#attaseq').val(attaseq);
-	$("#frm").submit();
+	$("#delFileFrm").submit();
 }
 </script>
 </head>
 
 <body>
+<form id="delFileFrm" action="${cp }/delFile" method="get">
+	<input type="hidden" name="postseq" value="${mPost.postseq }"/>
+	<input type="hidden" id="attaseq" name="attaseq"/>
+</form>
 <!-- header -->
-<%@include file="/WEB-INF/views/commonJsp//header.jsp" %>
+<%@include file="/WEB-INF/views/commonJsp/header.jsp" %>
 <div class="container-fluid">
 		<div class="row">
 			
 <div class="col-sm-3 col-md-2 sidebar">
-	<%@include file="/WEB-INF/views/commonJsp//left.jsp" %>
+	<%@include file="/WEB-INF/views/commonJsp/left.jsp" %>
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 <form class="form-horizontal" id="frm" role="form" action="${cp }/postModifyForm" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="postseq" value="${mPost.postseq }"/>
-	<input type="hidden" id="mMode" name="mMode"/>
-	<input type="hidden" id="attaseq" name="attaseq"/>
 	<div class="col-sm-12 blog-main">
 		<h2 class="sub-header">${S_POSTBOARDVO.boardnm }</h2>
 	</div>
@@ -113,7 +115,7 @@ function delBtn(attaseq) {
 					<div class="col-sm-12">
 						<label for="postcont" class="col-sm-2 control-label">글 내용</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:766px; height:412px;">${mPost.postcont }</textarea>
+							<textarea class="form-control" name="postcont" id="postcont" rows="10" cols="100" style="width:766px; height:412px;">${mPost.postcont }</textarea>
 						</div>
 						<hr class="col-sm-10" />
 					</div>
